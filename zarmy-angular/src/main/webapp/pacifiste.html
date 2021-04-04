@@ -1,0 +1,54 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>NoCombat</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="pacifiste in pacifisteCtrl.pacifistes">
+				<td>{{pacifiste.id}}</td>
+				<td>{{pacifiste.nom}}</td>
+				<td>{{pacifiste.noCombat}}</td>
+				<td><a ng-click="pacifisteCtrl.edit(pacifiste.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="pacifisteCtrl.remove(pacifiste.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="8"><a ng-click="pacifisteCtrl.add()"
+					class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></a></td>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-show="pacifisteCtrl.pacifiste">
+		<div class="panel-heading">Edition du pacifiste</div>
+		<div class="panel-body">
+			<form name="pacifisteForm" novalidate
+				ng-submit="pacifisteForm.$valid && pacifisteCtrl.save()">
+				<div class="form-group">
+					<label for="nom">Nom</label> <input type="text" name="nom"
+						class="form-control" required style="width: 400px"
+						ng-model="pacifisteCtrl.pacifiste.nom" />
+				</div>
+				<div class="form-group">
+					<label for="noCombat">NoCombat</label> <input type="text" name="noCombat"
+						class="form-control" required style="width: 400px"
+						ng-model="pacifisteCtrl.pacifiste.noCombat" />
+				</div>
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="pacifisteCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,104 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Description</th>
+				<th>Guerrilla mère</th>
+				<th>Photo</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="guerrier in guerrierCtrl.guerriers">
+				<td>{{guerrier.id}}</td>
+				<td>{{guerrier.nom}}</td>
+				<td>{{guerrier.description}}</td>
+<!-- 				<td>{{guerrier.description | limitTo : 30}}</td> -->
+				<td>{{guerrier.mere.nom}}</td>
+				<td>
+					<div ng-if="guerrier.nomPhoto">
+						<img ng-src="{{ guerrierCtrl.getPhoto(guerrier.id,guerrier.nomPhoto) }}" height="100"/>
+<!-- 						<img id="img{{guerrier.id}}" ng-src="{{ guerrierCtrl.getPhoto(guerrier.id,guerrier.nomPhoto) }}" height="100"/> -->
+					</div>
+<!-- 					<div ng-if="guerrier.nomPhoto" -->
+<!-- 							ng-init="imgsrc=guerrierCtrl.getPhoto(guerrier.id)" -->
+<!-- 							ng-model="guerrier.nomPhoto" -->
+<!-- 							ng-change="imgsrc=guerrierCtrl.getPhoto(guerrier.id)"> -->
+<!-- 						<img ng-src="{{ imgsrc }}" height="100"/> -->
+<!-- 					</div> -->
+				</td>
+				<td><a ng-click="guerrierCtrl.edit(guerrier.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="guerrierCtrl.remove(guerrier.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="7">
+					<a ng-click="guerrierCtrl.add()"
+						class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>
+					</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-if="guerrierCtrl.guerrier">
+<!-- 		ng-show="guerrierCtrl.guerrier"> -->
+		<div class="panel-heading">Edition de la guerre</div>
+		<div class="panel-body">
+			<form name="guerrierForm" novalidate
+				ng-submit="guerrierForm.$valid && guerrierCtrl.save()">
+				<div class="form-group">
+					<label for="nom">Nom</label> <input type="text" name="nom"
+						class="form-control" required style="width: 400px"
+						ng-model="guerrierCtrl.guerrier.nom" />
+				</div>
+				<div class="form-group">
+					<label for="description">Description</label>
+					<textarea rows="5"
+						class="form-control" required
+						ng-model="guerrierCtrl.guerrier.description" ></textarea>
+<!--  					<input type="text" name="description" -->
+<!-- 						class="form-control" required style="width: 400px" -->
+<!-- 						ng-model="guerrierCtrl.guerrier.description" /> -->
+				</div>
+				<div class="form-group">
+					<label for="mere">Guerrilla mère</label>
+					<select name="mere" ng-model="guerrierCtrl.guerrier.mere"
+						ng-options="mere.nom for mere in guerrierCtrl.meres | filter: {nom: '!' + guerrierCtrl.guerrier.nom} track by mere.id"
+					class="form-control" style="width: 400px">
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="file">Photo</label>
+					<div ng-if="guerrierCtrl.guerrier.id && guerrierCtrl.guerrier.nomPhoto">
+						<img ng-src="{{ guerrierCtrl.getPhoto(guerrierCtrl.guerrier.id,guerrierCtrl.guerrier.nomPhoto) }}" height="100"/>
+					</div>
+					<input type="file" name="file"
+						files-input ng-model="guerrierCtrl.files"
+						ng-change="{{ guerrierCtrl.files && guerrierCtrl.files[0] && guerrierCtrl.readImg() }}"
+						class="form-control-file"/>
+<!-- 					<input type="file" name="file" files-input ng-model="guerrierCtrl.files" multiple class="form-control"/> -->
+      				<div ng-if="guerrierCtrl.files && guerrierCtrl.files[0]">
+      					<img id="imgguerrier" src="" height="100"/>
+      				</div>
+				</div>
+				<div ng-repeat="file in guerrierCtrl.files">
+      				{{file.name}}
+    			</div>
+				
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="guerrierCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,56 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Tarif</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="specialite in specialiteCtrl.specialites">
+				<td>{{specialite.id}}</td>
+				<td>{{specialite.nom}}</td>
+				<td>{{specialite.tarif}}</td>
+				
+				
+				<td><a ng-click="specialiteCtrl.edit(specialite.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="specialiteCtrl.remove(specialite.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="8"><a ng-click="specialiteCtrl.add()"
+					class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></a></td>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-show="specialiteCtrl.specialite">
+		<div class="panel-heading">Edition des specialites</div>
+		<div class="panel-body">
+			<form name="specialiteForm" novalidate
+				ng-submit="specialiteForm.$valid && specialiteCtrl.save()">
+				<div class="form-group">
+					<label for="nom">Nom</label> <input type="text" name="nom"
+						class="form-control" required style="width: 400px"
+						ng-model="specialiteCtrl.specialite.nom" />
+				</div>
+				<div class="form-group">
+					<label for="tarif">Tarif</label> <input type="text" name="tarif"
+						class="form-control" required style="width: 400px"
+						ng-model="specialiteCtrl.specialite.tarif" />
+				</div>
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="specialiteCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>>

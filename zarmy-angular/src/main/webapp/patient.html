@@ -1,0 +1,54 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Prénom</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="patient in patientCtrl.patients">
+				<td>{{patient.id}}</td>
+				<td>{{patient.nom}}</td>
+				<td>{{patient.prenom}}</td>
+				<td><a ng-click="patientCtrl.edit(patient.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="patientCtrl.remove(patient.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="8"><a ng-click="patientCtrl.add()"
+					class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></a></td>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-show="patientCtrl.patient">
+		<div class="panel-heading">Edition du patient</div>
+		<div class="panel-body">
+			<form name="patientForm" novalidate
+				ng-submit="patientForm.$valid && patientCtrl.save()">
+				<div class="form-group">
+					<label for="nom">Nom</label> <input type="text" name="nom"
+						class="form-control" required style="width: 400px"
+						ng-model="patientCtrl.patient.nom" />
+				</div>
+				<div class="form-group">
+					<label for="prenom">Prénom</label> <input type="text" name="prenom"
+						class="form-control" required style="width: 400px"
+						ng-model="patientCtrl.patient.prenom" />
+				</div>
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="patientCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

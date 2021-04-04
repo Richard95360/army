@@ -1,0 +1,89 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Nombre de produits</th>
+				<th>Prix total</th>
+				<th>Date</th>
+				<th>Livraison</th>
+				<th>Facturation</th>
+				<th>Client</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="commande in commandeCtrl.commandes">
+				<td>{{commande.id}}</td>
+				<td>{{commande.nbArmes}}</td>
+				<td>{{commande.prixTotal | currency:'€':0}}</td>
+				<td>{{commande.date | date:'dd/MM/yyyy'}}</td>
+				<td>{{commande.livraison.rue}} {{commande.livraison.codePostal}} {{commande.livraison.ville}}</td>
+				<td>{{commande.facturation.rue}} {{commande.facturation.codePostal}} {{commande.facturation.ville}}</td>
+				<td>{{commande.client.nom}}</td>
+				<td><a ng-click="commandeCtrl.edit(commande.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="commandeCtrl.remove(commande.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="9"><a ng-click="commandeCtrl.add()"
+					class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></a></td>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-show="commandeCtrl.commande">
+		<div class="panel-heading">Edition de la commande</div>
+		<div class="panel-body">
+			<form name="commandeForm" novalidate
+				ng-submit="commandeForm.$valid && commandeCtrl.save()">
+				<div class="form-group">
+					<label for="nbArmes">Nombre de Armes</label> <input type="number" name="nbArmes"
+						class="form-control" readonly style="width: 400px"
+						ng-model="commandeCtrl.commande.nbArmes" />
+				</div>
+				<div class="form-group">
+					<label for="prixTotal">Prix total</label> <input type="number" name="prixTotal"
+						class="form-control" readonly style="width: 400px"
+						ng-model="commandeCtrl.commande.prixTotal" />
+				</div>
+				<div class="form-group">
+					<label for="date">Date</label> <input type="date" name="date"
+						class="form-control" required style="width: 400px"
+						ng-model="commandeCtrl.commande.date" />
+				</div>
+				<div class="form-group">
+					<label for="livraison">Livraison</label>
+					<select name="livraison" ng-model="commandeCtrl.commande.livraison"
+						ng-options="livraison.rue for livraison in commandeCtrl.adresses track by livraison.id"
+					class="form-control" required style="width: 400px">
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="facturation">Facturation</label>
+					<select name="facturation" ng-model="commandeCtrl.commande.facturation"
+						ng-options="facturation.rue for facturation in commandeCtrl.adresses track by facturation.id"
+					class="form-control"  style="width: 400px">
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="client">Client</label>
+					<select name="client" ng-model="commandeCtrl.commande.client"
+						ng-options="client.nom for client in commandeCtrl.clients track by client.id"
+					class="form-control"  required style="width: 400px">
+					</select>
+				</div>
+				
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="commandeCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

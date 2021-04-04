@@ -1,0 +1,60 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Soin</th>
+				<th>Specialite</th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="medecin in medecinCtrl.medecins">
+				<td>{{medecin.id}}</td>
+				<td>{{medecin.nom}}</td>
+				<td>{{medecin.soin}}</td>
+				<td>{{medecin.specialite}}</td>
+				<td><a ng-click="medecinCtrl.edit(medecin.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="medecinCtrl.remove(medecin.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="8"><a ng-click="medecinCtrl.add()"
+					class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></a></td>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-show="medecinCtrl.medecin">
+		<div class="panel-heading">Edition du medecin</div>
+		<div class="panel-body">
+			<form name="medecinForm" novalidate
+				ng-submit="medecinForm.$valid && medecinCtrl.save()">
+				<div class="form-group">
+					<label for="nom">Nom</label> <input type="text" name="nom"
+						class="form-control" required style="width: 400px"
+						ng-model="medecinCtrl.medecin.nom" />
+				</div>
+				<div class="form-group">
+					<label for="soin">Soin</label> <input type="text" name="soin"
+						class="form-control" required style="width: 400px"
+						ng-model="medecinCtrl.medecin.soin" />
+				</div>
+				<div class="form-group">
+					<label for="specialite">Specialite</label> <input type="text" name="specialite"
+						class="form-control" required style="width: 400px"
+						ng-model="medecinCtrl.medecin.specialite" />
+				</div>
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="medecinCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

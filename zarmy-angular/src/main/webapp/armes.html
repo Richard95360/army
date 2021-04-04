@@ -1,0 +1,21 @@
+<meta charset="UTF-8">
+<div class="panel panel-default">
+	<table>
+		<tr>
+			<td ng-repeat="arme in armesCtrl.armes">
+				<table>
+					<tr><td>{{arme.nom}}</td></tr>
+					<tr><td>{{arme.description}}</td></tr>
+					<tr><td>{{arme.prix}}</td></tr>
+					<tr><td>{{arme.stock}}</td></tr>
+					<tr><td>{{arme.guerrier.nom}}</td></tr>
+					<tr><td>
+						<div ng-if="arme.nomPhoto">
+							<img ng-src="{{ armesCtrl.getPhoto(arme.id,arme.nomPhoto) }}" height="100"/>
+						</div>
+					</td></tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>

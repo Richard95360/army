@@ -1,0 +1,54 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Metier</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="civil in civilCtrl.civils">
+				<td>{{civil.id}}</td>
+				<td>{{civil.nom}}</td>
+				<td>{{civil.metier}}</td>
+				<td><a ng-click="civilCtrl.edit(civil.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="civilCtrl.remove(civil.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="8"><a ng-click="civilCtrl.add()"
+					class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></a></td>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-show="civilCtrl.civil">
+		<div class="panel-heading">Edition du civil</div>
+		<div class="panel-body">
+			<form name="civilForm" novalidate
+				ng-submit="civilForm.$valid && civilCtrl.save()">
+				<div class="form-group">
+					<label for="nom">Nom</label> <input type="text" name="nom"
+						class="form-control" required style="width: 400px"
+						ng-model="civilCtrl.civil.nom" />
+				</div>
+				<div class="form-group">
+					<label for="metier">Metier</label> <input type="text" name="metier"
+						class="form-control" required style="width: 400px"
+						ng-model="civilCtrl.civil.metier" />
+				</div>
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="civilCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

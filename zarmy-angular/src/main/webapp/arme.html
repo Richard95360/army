@@ -1,0 +1,117 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Description</th>
+				<th>Prix</th>
+				<th>Stock</th>
+				<th>Guerrier</th>
+				<th>Sélectionné</th>
+				<th>Photo</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="arme in armeCtrl.armes">
+				<td>{{arme.id}}</td>
+				<td>{{arme.nom}}</td>
+				<td>{{arme.description}}</td>
+				<td>{{arme.prix}}</td>
+				<td>{{arme.stock}}</td>
+				<td>{{arme.guerrier.nom}}</td>
+				<td>{{arme.selectionne}}</td>
+				<td>
+					<div ng-if="arme.nomPhoto">
+						<img ng-src="{{ armeCtrl.getPhoto(arme.id,arme.nomPhoto) }}" height="100"/>
+					</div>
+				</td>
+				<td><a ng-click="armeCtrl.edit(arme.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="armeCtrl.remove(arme.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<a ng-click="armeCtrl.add()"
+						class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>
+					</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-if="armeCtrl.arme">
+<!-- 		ng-show="armeCtrl.arme"> -->
+		<div class="panel-heading">Edition des arme</div>
+		<div class="panel-body">
+			<form name="armeForm" novalidate
+				ng-submit="armeForm.$valid && armeCtrl.save()">
+				<div class="form-group">
+					<label for="nom">Nom</label> <input type="text" name="nom"
+						class="form-control" required style="width: 400px"
+						ng-model="armeCtrl.arme.nom" />
+				</div>
+				<div class="form-group">
+					<label for="description">Description</label>
+					<textarea rows="5"
+						class="form-control" required
+						ng-model="armeCtrl.arme.description"></textarea>
+<!-- 					<input type="text" name="description" -->
+<!-- 						class="form-control" required style="width: 400px" -->
+<!-- 						ng-model="armeCtrl.arme.description" /> -->
+				</div>
+				<div class="form-group">
+					<label for="prix">Prix</label> <input type="number" name="prix"
+						class="form-control" required style="width: 400px"
+						ng-model="armeCtrl.arme.prix" />
+				</div>
+				<div class="form-group">
+					<label for="stock">Stock</label> <input type="number" name="stock"
+						class="form-control" required style="width: 400px"
+						ng-model="armeCtrl.arme.stock" />
+				</div>
+				<div class="form-group">
+					<label for="guerrier">Guerrier</label>
+					<select name="guerrier" ng-model="armeCtrl.arme.guerrier"
+						ng-options="guerrier.nom for guerrier in armeCtrl.guerriers track by guerrier.id"
+					class="form-control" required style="width: 400px">
+					</select>
+				</div>
+				<div class="form-check">
+					<label for="selectionne" class="form-check-label">Sélectionné</label>
+					<input type="checkbox" name="selectionne"
+						class="form-check-input" style="width: 400px"
+						ng-model="armeCtrl.arme.selectionne" />
+				</div>
+				<div class="form-group">
+					<label for="file">Photo</label>
+					<div ng-if="armeCtrl.arme.id && armeCtrl.arme.nomPhoto">
+						<img ng-src="{{ armeCtrl.getPhoto(armeCtrl.arme.id,armeCtrl.arme.nomPhoto) }}" height="100"/>
+					</div>
+					<input type="file" name="file"
+						files-input ng-model="armeCtrl.files"
+						ng-change="{{ armeCtrl.files && armeCtrl.files[0] && armeCtrl.readImg() }}"
+						class="form-control-file"/>
+      				<div ng-if="armeCtrl.files && armeCtrl.files[0]">
+      					<img id="imgarme" src="" height="100"/>
+      				</div>
+				</div>
+				<div ng-repeat="file in armeCtrl.files">
+      				{{file.name}}
+    			</div>
+				
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="armeCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,64 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>User name</th>
+				<th>Mot de passe</th>
+<!-- 				<th>Rôle</th> -->
+				<th></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="user in userCtrl.users">
+				<td>{{user.id}}</td>
+				<td>{{user.username}}</td>
+				<td>{{user.password}}</td>
+<!-- 				<td>{{user.role}}</td> -->
+				<td><a ng-click="userCtrl.edit(user.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="userCtrl.remove(user.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="5"><a ng-click="userCtrl.add()"
+					class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></a></td>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-show="userCtrl.user">
+		<div class="panel-heading">Edition du user</div>
+		<div class="panel-body">
+			<form name="loginForm" novalidate
+				ng-submit="loginForm.$valid && userCtrl.save()">
+				<div class="form-group">
+					<label for="username">User name</label> <input type="text" name="username"
+						class="form-control" required style="width: 400px"
+						ng-model="userCtrl.user.username" />
+				</div>
+				<div class="form-group">
+					<label for="password">Mot de passe</label> <input type="text" name="password"
+						class="form-control" required style="width: 400px"
+						ng-model="userCtrl.user.password" />
+				</div>
+<!-- 				<div class="form-group"> -->
+<!-- 					<label for="role">Rôle</label> -->
+<!-- 					<select name="role" ng-model="userCtrl.login.role" -->
+<!-- 						ng-options="role for role in userCtrl.roles track by role" -->
+<!-- 						class="form-control"  style="width: 400px"> -->
+<!-- 					</select> -->
+<!-- 				</div> -->
+				
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="userCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

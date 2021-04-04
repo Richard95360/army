@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="army.dao" />
+
+	<context:property-placeholder location="classpath:sgbd.properties" />
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.user}" />
+		<property name="password" value="${db.password}" />
+		<property name="initialSize" value="${db.initialPoolSize}" />
+		<property name="minIdle" value="${db.minPoolSize}" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="army.model" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="${db.hibernate.dialect}" />
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="true" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<bean id="guerrierDao" class="army.dao.impl.GuerrierDaoJpa"></bean>
+	<bean id="armeDao" class="army.dao.impl.ArmeDaoJpa"></bean>
+	<bean id="userDao" class="army.dao.impl.UserDaoJpa"></bean>
+<!-- 	<bean id="roleDao" class="army.dao.impl.RoleDaoJpa"></bean>  -->
+	<bean id="adminGuerrier" class="army.metier.AdminGuerrier">
+		<property name="guerrierDao" ref="guerrierDao"></property> 
+		<property name="armeDao" ref="armeDao"></property> 
+		<property name="userDao" ref="userDao"></property> 
+<!-- 		<property name="roleDao" ref="roleDao"></property> -->
+	</bean>
+	<bean id="adminArme" class="army.metier.AdminArme">
+		<property name="armeDao" ref="armeDao"></property> 
+	</bean>
+	<bean id="internaute" class="army.metier.Internaute">
+		<property name="guerrierDao" ref="guerrierDao"></property> 
+		<property name="armeDao" ref="armeDao"></property> 
+	</bean>
+<!-- 	<bean id="adminCategorie" class="eboutique.metier.AdminCategorie"> -->
+<!-- 		<property name="categorieDao" ref="categorieDao"></property>  -->
+<!-- 		<property name="produitDao" ref="produitDao"></property>  -->
+<!-- 	</bean> -->
+<!-- 	<bean id="adminProduit" class="eboutique.metier.AdminCategorie"> -->
+<!-- 		<property name="categorieDao" ref="categorieDao"></property>  -->
+<!-- 		<property name="produitDao" ref="produitDao"></property>  -->
+<!-- 	</bean> -->
+	
+	<!-- Activation de la translation d'exception -->
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor">
+	</bean>
+
+</beans>

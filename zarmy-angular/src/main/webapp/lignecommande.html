@@ -1,0 +1,75 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Quantité</th>
+				<th>Montant</th>
+				<th>Arme</th>
+				<th>Commande</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="lignecommande in lignecommandeCtrl.lignecommandes">
+				<td>{{lignecommande.id}}</td>
+				<td>{{lignecommande.quantite}}</td>
+				<td>{{lignecommande.montant | currency:'€':0}}</td>
+				<td>{{lignecommande.arme.nom}}</td>
+				<td>{{lignecommande.commande.id}}</td>
+				<td><a ng-click="lignecommandeCtrl.edit(lignecommande.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="lignecommandeCtrl.remove(lignecommande.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="7"><a ng-click="lignecommandeCtrl.add()"
+					class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></a></td>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-show="lignecommandeCtrl.lignecommande">
+		<div class="panel-heading">Edition de la ligne de commande</div>
+		<div class="panel-body">
+			<form name="lignecommandeForm" novalidate
+				ng-submit="lignecommandeForm.$valid && lignecommandeCtrl.save()">
+				<div class="form-group">
+					<label for="quantite">Quantité</label> <input type="number" name="quantite"
+						class="form-control" required style="width: 400px"
+						ng-change="lignecommandeCtrl.changeQuantite()"
+						ng-model="lignecommandeCtrl.lignecommande.quantite" />
+					<span ng-show="lignecommandeCtrl.alertQuantite">La quantité doit être <= stock de {{lignecommandeCtrl.lignecommande.arme.stock}}</span>
+				</div>
+				<div class="form-group">
+					<label for="montant">Montant</label> <input type="number" name="montant"
+						class="form-control" readonly style="width: 400px"
+						ng-model="lignecommandeCtrl.lignecommande.montant" />
+				</div>
+				<div class="form-group">
+					<label for="arme">arme</label>
+					<select name="arme" ng-model="lignecommandeCtrl.lignecommande.arme"
+						ng-options="arme.nom for arme in lignecommandeCtrl.armes track by arme.id"
+					class="form-control" required style="width: 400px">
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="commande">Commande</label>
+					<select name="commande" ng-model="lignecommandeCtrl.lignecommande.commande"
+						ng-options="commande.id for commande in lignecommandeCtrl.commandes track by commande.id"
+					class="form-control" required style="width: 400px">
+					</select>
+				</div>
+				
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="lignecommandeCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

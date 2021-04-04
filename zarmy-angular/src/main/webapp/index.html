@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="army">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/app.css">
+
+<script type="text/javascript" src="lib/jquery.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/angular.min.js"></script>
+
+<script type="text/javascript" src="js/app.js"></script>
+
+<script type="text/javascript" src="js/arme.js"></script>
+<script type="text/javascript" src="js/armes.js"></script>
+<script type="text/javascript" src="js/civil.js"></script>
+<script type="text/javascript" src="js/commande.js"></script>
+<script type="text/javascript" src="js/connexion.js"></script>
+<script type="text/javascript" src="js/corqsmilitaire.js"></script>
+<script type="text/javascript" src="js/guerriers.js"></script>
+<script type="text/javascript" src="js/guerrier.js"></script>
+<script type="text/javascript" src="js/lignecommande.js"></script>
+<script type="text/javascript" src="js/medecin.js"></script>
+<script type="text/javascript" src="js/pacifiste.js"></script>
+<script type="text/javascript" src="js/role.js"></script>
+<script type="text/javascript" src="js/user.js"></script>
+<script type="text/javascript" src="js/filesInput.js"></script>
+<title>zarmy</title>
+</head>
+<body>
+
+	<div class="container" ng-controller="MenuController as menuCtrl">
+		<ul class="nav nav-pills">
+		  <li ng-class="{active:menuCtrl.isMenu('accueil')}">
+		  	<a ng-click="menuCtrl.setMenu('accueil')">Accueil</a></li>
+
+		  	  <li ng-class="{active:menuCtrl.isMenu('arme')}"
+		  		ng-show="menuCtrl.isConnecte() && (menuCtrl.isAdminGue() || menuCtrl.isAdminArm())">
+		  	<a ng-click="menuCtrl.setMenu('arme')">Arme</a></li>
+		  	
+		  	 <li ng-class="{active:menuCtrl.isMenu('civil')}"
+		   		ng-show="menuCtrl.isConnecte() && (menuCtrl.isAdminGue())">
+		  	<a ng-click="menuCtrl.setMenu('client')">Civil</a></li>
+		  	
+		  <li ng-class="{active:menuCtrl.isMenu('commande')}"
+		   		ng-show="menuCtrl.isConnecte() && (menuCtrl.isAdminGue())">
+		  	<a ng-click="menuCtrl.setMenu('commande')">Commande</a></li>
+		  	
+		  	 <li ng-class="{active:menuCtrl.isMenu('connexion')}">
+		  	<a ng-click="menuCtrl.setMenu('connexion')">Connexion</a></li>
+		  	
+		  		<li ng-class="{active:menuCtrl.isMenu('corqsmilitaire')}"
+		   		ng-show="menuCtrl.isConnecte() && (menuCtrl.isAdminGue())">
+		  	<a ng-click="menuCtrl.setMenu('corqsmilitaire')">CorqsMilitaire</a></li>
+		  	
+		  	 <li ng-class="{active:menuCtrl.isMenu('guerrier')}"
+		  		ng-show="menuCtrl.isConnecte() && (menuCtrl.isAdminGue())">
+		  	<a ng-click="menuCtrl.setMenu('guerrier')">Guerrier</a></li>
+		  	
+		  <li ng-class="{active:menuCtrl.isMenu('lignecommande')}"
+		   		ng-show="menuCtrl.isConnecte() && (menuCtrl.isAdminGue())">
+		  	<a ng-click="menuCtrl.setMenu('lignecommande')">Ligne commande</a></li>
+
+		  <li ng-class="{active:menuCtrl.isMenu('medecin')}"
+		   		ng-show="menuCtrl.isConnecte() && (menuCtrl.isAdminGue())">
+		  	<a ng-click="menuCtrl.setMenu('medecin')">Medecin</a></li>
+		  	
+		  	<li ng-class="{active:menuCtrl.isMenu('pacifiste')}"
+		   		ng-show="menuCtrl.isConnecte() && (menuCtrl.isAdminGue())">
+		  	<a ng-click="menuCtrl.setMenu('pacifiste')">Pacifiste</a></li>
+		  	
+		  <li ng-class="{active:menuCtrl.isMenu('role')}"
+		   		ng-show="menuCtrl.isConnecte() && (menuCtrl.isAdminGue())">
+		  	<a ng-click="menuCtrl.setMenu('role')">Role</a></li>
+		  	
+		  	<li ng-class="{active:menuCtrl.isMenu('user')}"
+		   		ng-show="menuCtrl.isConnecte() && (menuCtrl.isAdminGue())">
+		  	<a ng-click="menuCtrl.setMenu('user')">User</a></li>
+		  	
+		</ul>
+
+        <arme ng-show="menuCtrl.isMenu('arme')"></arme>
+		<armes ng-show="menuCtrl.isMenu('accueil')"></armes>
+		<civil ng-show="menuCtrl.isMenu('civil')"></civil>
+		<commande ng-show="menuCtrl.isMenu('commande')"></commande>
+		<connexion ng-show="menuCtrl.isMenu('connexion')"></connexion>
+		<corqsmilitaire ng-show="menuCtrl.isMenu('corqsmilitaire')"></corqsmilitaire>
+		<guerrier ng-show="menuCtrl.isMenu('guerrier')"></guerrier>
+		<guerriers ng-show="menuCtrl.isMenu('accueil')"></guerriers>
+		<lignecommande ng-show="menuCtrl.isMenu('lignecommande')"></lignecommande>
+		<medecin ng-show="menuCtrl.isMenu('medecin')"></medecin>
+		<pacifiste ng-show="menuCtrl.isMenu('pacifiste')"></pacifiste>
+		<role ng-show="menuCtrl.isMenu('role')"></role>
+		<user ng-show="menuCtrl.isMenu('user')"></user>
+		
+		
+		
+	</div>
+
+</body>
+</html>

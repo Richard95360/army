@@ -1,0 +1,59 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Rôle</th>
+				<th>User</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="role in roleCtrl.roles">
+				<td>{{role.id}}</td>
+				<td>{{role.nom}}</td>
+				<td>{{role.user.username}}</td>
+				<td><a ng-click="roleCtrl.edit(role.id)"
+					class="btn btn-info btn-xs"><span
+						class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a ng-click="roleCtrl.remove(role.id)"
+					class="btn btn-danger btn-xs"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+			<tr>
+				<td colspan="5"><a ng-click="roleCtrl.add()"
+					class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></a></td>
+		</table>
+	</div>
+	<div class="panel panel-default" style="margin-top: 20px"
+		ng-show="roleCtrl.role">
+		<div class="panel-heading">Edition du rôle</div>
+		<div class="panel-body">
+			<form name="roleForm" novalidate
+				ng-submit="roleForm.$valid && roleCtrl.save()">
+				<div class="form-group">
+					<label for="role">Rôle</label>
+					<select name="role" ng-model="roleCtrl.role.nom"
+						ng-options="role for role in roleCtrl.roleValues track by role"
+						class="form-control"  style="width: 400px">
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="user">User</label>
+					<select name="user" ng-model="roleCtrl.role.user"
+						ng-options="user.username for user in roleCtrl.users track by user.id"
+					class="form-control" required style="width: 400px">
+					</select>
+				</div>
+				
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="roleCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

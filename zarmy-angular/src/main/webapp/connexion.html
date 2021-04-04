@@ -1,0 +1,29 @@
+<meta charset="UTF-8">
+<div>
+	<div class="panel panel-default" style="margin-top: 20px">
+		<div class="panel-heading">Connectez-vous</div>
+		<div class="panel-body">
+			<form name="connexionForm" novalidate
+				ng-submit="connexionForm.$valid && connexionCtrl.connecter()">
+				<div class="form-group">
+					<label for="user">User name</label> <input type="text" name="nom"
+						class="form-control" required style="width: 400px"
+						ng-model="connexionCtrl.username" />
+				</div>
+				<div class="form-group">
+					<label for="password">Mot de passe</label> <input type="password" name="password"
+						class="form-control" required style="width: 400px"
+						ng-model="connexionCtrl.password" />
+				</div>
+				
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button type="button" class="btn btn-warning"
+					ng-click="connexionCtrl.cancel()">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
